@@ -235,11 +235,11 @@
                                     "fontsize": 12.0,
                                     "id": "route",
                                     "maxclass": "newobj",
-                                    "numinlets": 22,
-                                    "numoutlets": 22,
-                                    "outlettype": [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ],
+                                    "numinlets": 26,
+                                    "numoutlets": 26,
+                                    "outlettype": [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ],
                                     "patching_rect": [ 30.0, 135.0, 1500.0, 22.0 ],
-                                    "text": "route on speed latent mode auto auto1 auto2 detect sensitivity refreshmode refreshpoint size1 size2 filtertype filtershape freq1 freq2 resonance ampmode panmode phase"
+                                    "text": "route on speed latent mode auto auto1 auto2 detect sensitivity refreshmode refreshpoint size1 size2 filtertype filtershape freq1 freq2 resonance ampmode panmode phase ampenv filterenv envtime1 envtime2"
                                 }
                             },
                             {
@@ -786,8 +786,110 @@
                                     "maxclass": "comment",
                                     "numinlets": 1,
                                     "numoutlets": 0,
-                                    "patching_rect": [ 30.0, 410.0, 134.0, 20.0 ],
+                                    "patching_rect": [ 30.0, 480.0, 134.0, 20.0 ],
                                     "text": "(last outlet: unmatched)"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontname": "Arial",
+                                    "fontsize": 12.0,
+                                    "id": "n-ampenv",
+                                    "maxclass": "number",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [ "", "bang" ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [ 30.0, 410.0, 60.0, 22.0 ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontname": "Arial",
+                                    "fontsize": 12.0,
+                                    "id": "l-ampenv",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [ 30.0, 435.0, 125.0, 20.0 ],
+                                    "text": "ampenv (0 off, 1 in, 2 out)"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontname": "Arial",
+                                    "fontsize": 12.0,
+                                    "id": "n-filterenv",
+                                    "maxclass": "number",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [ "", "bang" ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [ 160.0, 410.0, 60.0, 22.0 ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontname": "Arial",
+                                    "fontsize": 12.0,
+                                    "id": "l-filterenv",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [ 160.0, 435.0, 129.0, 20.0 ],
+                                    "text": "filterenv (0 off, 1 open, 2 close)"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontname": "Arial",
+                                    "fontsize": 12.0,
+                                    "format": 6,
+                                    "id": "n-envtime1",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [ "", "bang" ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [ 290.0, 410.0, 60.0, 22.0 ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontname": "Arial",
+                                    "fontsize": 12.0,
+                                    "id": "l-envtime1",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [ 290.0, 435.0, 125.0, 20.0 ],
+                                    "text": "envtime1 (ms)"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontname": "Arial",
+                                    "fontsize": 12.0,
+                                    "format": 6,
+                                    "id": "n-envtime2",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [ "", "bang" ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [ 420.0, 410.0, 60.0, 22.0 ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontname": "Arial",
+                                    "fontsize": 12.0,
+                                    "id": "l-envtime2",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [ 420.0, 435.0, 125.0, 20.0 ],
+                                    "text": "envtime2 (ms)"
                                 }
                             }
                         ],
@@ -796,6 +898,30 @@
                                 "patchline": {
                                     "destination": [ "route", 0 ],
                                     "source": [ "in", 0 ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [ "n-ampenv", 0 ],
+                                    "source": [ "route", 21 ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [ "n-filterenv", 0 ],
+                                    "source": [ "route", 22 ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [ "n-envtime1", 0 ],
+                                    "source": [ "route", 23 ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [ "n-envtime2", 0 ],
+                                    "source": [ "route", 24 ]
                                 }
                             },
                             {
